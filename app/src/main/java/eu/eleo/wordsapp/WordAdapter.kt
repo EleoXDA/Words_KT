@@ -27,9 +27,6 @@ import android.widget.Button
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 
-/**
- * Adapter for the [RecyclerView] in [DetailActivity].
- */
 class WordAdapter(private val letterId: String, context: Context) :
     RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
 
@@ -84,8 +81,8 @@ class WordAdapter(private val letterId: String, context: Context) :
         // Set the text of the WordViewHolder
         holder.button.text = item
         holder.button.setOnClickListener{
-            Uri.parse("${WordListFragment.SEARCH_PREFIX}${item}")
-            val intent = Intent(Intent.ACTION_VIEW)
+            val queryUrl: Uri = Uri.parse("${WordListFragment.SEARCH_PREFIX}${item}")
+            val intent = Intent(Intent.ACTION_VIEW, queryUrl)
             context.startActivity(intent)
         }
     }
