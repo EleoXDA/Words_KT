@@ -9,13 +9,18 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.runner.AndroidJUnit4
 import junit.framework.Assert.assertEquals
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class NavigationTests {
+
+    @get:Rule
+    val activity = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
     fun navigate_to_words_nav_component() {
@@ -23,13 +28,13 @@ class NavigationTests {
             ApplicationProvider.getApplicationContext()
         )
         val letterListScenario = launchFragmentInContainer<LetterListFragment>(
-            themeResId =
-            R.style.Theme_Words
+            themeResId = R.style.Theme_Words
         )
         letterListScenario.onFragment { fragment ->
             navController.setGraph(R.navigation.nav_graph)
             Navigation.setViewNavController(fragment.requireView(), navController)
         }
+
 
         onView(withId(R.id.recycler_view))
             .perform(
@@ -39,3 +44,5 @@ class NavigationTests {
         assertEquals(navController.currentDestination?.id, R.id.wordListFragment)
     }
 }
+
+
