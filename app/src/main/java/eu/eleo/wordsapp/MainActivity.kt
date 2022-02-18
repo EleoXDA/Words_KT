@@ -26,17 +26,18 @@ import eu.eleo.wordsapp.databinding.ActivityMainBinding
  * Main Activity and entry point for the app. Displays a RecyclerView of letters.
  */
 class MainActivity : AppCompatActivity() {
+    lateinit var navController: NavController
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        lateinit var navController: NavController
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         setupActionBarWithNavController(navController)
-        fun onSupportNavigateUp(): Boolean {
-            return navController.navigateUp() || super.onSupportNavigateUp()
-        }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
